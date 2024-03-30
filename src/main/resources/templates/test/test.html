@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <header th:replace="~{common/base :: head}"></header>
+</head>
+<body>
+    <!-- 핑크 배경-->
+    <div class="container mt-3">
+        <div class="card" style="background-color: rgb(245, 222, 226);">
+            <div class="card-body" style="height: 750px;">
+                <h4 class="card-title">Card title</h4>
+                <!--핑크 배경안 종이 -->
+                <div class="row">
+                    <div class="col-4">
+                        <div th:insert="~{common/base :: aside}"></div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card" style="height: 650px;">
+                            <div class="card-body">
+                                <p>board</p>
+                                <h1>Base가 아닌 board를 통해 내용 추가하기</h1>                               
+                                <div th:insert="~{common/base :: nav}"></div>                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

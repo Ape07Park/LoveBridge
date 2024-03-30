@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<header th:replace="~{common/base :: head}"></header>
+	<style>
+		td,
+		th {
+			text-align: center;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		.container {
+			display: grid;
+			place-items: center;
+		}
+
+		.store_info {
+			position: relative;
+			padding: 15px 10px;
+			border: 4px solid #ff7f50;
+			/* 외각선 두께와 색상 설정 */
+			border-radius: 12px;
+			/* 모서리 둥글기 설정 */
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+			/* 그림자 효과 설정 */
+			box-sizing: border-box;
+			border-radius: 10px;
+			margin-bottom: 12px;
+			margin-top: 20px;
+		}
+
+		.store_info_detail {
+			position: relative;
+			border: 4px solid #ff7f50;
+			/* 외각선 두께와 색상 설정 */
+			border-radius: 12px;
+			/* 모서리 둥글기 설정 */
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+			/* 그림자 효과 설정 */
+			box-sizing: border-box;
+			border-radius: 10px;
+			margin-bottom: 12px;
+			margin-top: 20px;
+			margin-right: 2%;
+			width: 48%;
+			height: 350px;
+			overflow-y: auto;
+		}
+
+		.info-table {
+			width: 100%;
+			height: 100%;
+			border-collapse: collapse;
+		}
+
+		.info-table th {
+			padding: 8px;
+			border: 1px solid #ddd;
+			text-align: center;
+		}
+		
+		.info-table td {
+			padding: 8px;
+			border: 1px solid #ddd;
+			text-align: left;
+		}
+
+
+		.menu-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.pics {
+			/* 전체 케러셀 */
+			width: 600px;
+			float: left;
+			position: relative;
+			left: 50%;
+			object-fit: cover;
+		}
+
+		.d-block {
+			display: block;
+			width: 300px;
+			height: 300px;
+		}
+
+		.map_style {
+			border: 4px solid #ff7f50;
+			/* 외각선 두께와 색상 설정 */
+			border-radius: 12px;
+			/* 모서리 둥글기 설정 */
+			background-color: #f0f0f0;
+			/* 배경색 설정 */
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+			/* 그림자 효과 설정 */
+			margin-bottom: 12px;
+			margin-top: 20px;
+			display: inline-block;
+			margin-left: 1%;
+			width: 48%;
+			height: 350px;
+		}
+		.fa-thumbs-up{
+			 color: coral;
+		}
+	</style>
+	<script th:inline="javascript">
+		function likeClick(fid) {
+			let oldCount = $('#likeCount').text();
+			$.ajax({
+				type: 'GET',
+				url: '/mid/boardf/like/' + fid,
+				success: function (count) {
+					$('#likeCount').replaceWith(count);
+					// console.log("count=" + count);      
+					let newCount = $('#likeCount').text();
+					if (oldCount > newCount)
+						$('#likeIcon').attr({'class': 'fa-regular fa-thumbs-up'});    // 좋아요 취소
+					else
+						$('#likeIcon').attr({'class': 'fa-solid fa-thumbs-up'});      // 좋아요 누름
+				}
+			});
+		}
+	</script>
+</head>
+
+<body>
+	<div th:insert="~{fragments/base :: top}"></div>
+	<div class="container" style="margin-top:120px; margin-bottom: 120px;">
+		<!-- 맛집목록 -->
+		<div style="width: 100%;">
+			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+						class="active" aria-current="true" aria-label="Slide 1"></button>
+					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+						aria-label="Slide 2"></button>
+					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+						aria-label="Slide 3"></button>
+				</div> 
+				<div class="carousel-inner">
+					<div th:each="picPick, picPickStat: ${pickPicList}">
+						<a th:if="${picPickStat.index eq 0}" class="carousel-item active">
+							<img th:src="${picPick}" class="d-block w-100 h-30" alt="음식 사진">
+						</a>
+						<a th:unless="${picPickStat.index eq 0}" class="carousel-item">
+							<img th:src="${picPick}" class="d-block w-100 h-30" alt="음식 사진">
+						</a>
+					</div>
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+			<br>
+			<br>		
+			<div class="row">
+			<div class="col-3" th:insert="~{fragments/base :: aside}"></div>
+			
+			<div class="col-9">
+			<div>
+				<h1 style="display: inline-block;">[[${boardf.title}]]</h1>
+				<span style="font-size: 16px; display: inline-block; margin: 0 10px;">[[${boardf.foodCategory}]]</span>
+				<span style="font-size: smaller; display: inline-block; ">
+					<span th:if="${session.sessUid eq boardf.uid}"> <!-- 본인은 좋아요 누르지 못함 -->
+						<a href="#">
+							<span th:if="${session.likeClicked == 1}" class="fa-thumbs-up" ><i id="likeIcon"
+									class="fa-solid fa-thumbs-up"></i>[[${count}]]</span>
+							<span th:if="${session.likeClicked == 0}" class="fa-thumbs-up" ><i id="likeIcon"
+									class="fa-regular fa-thumbs-up"></i>[[${count}]]</span>
+						</a>
+					</span>
+					<span th:if="${session.sessUid ne boardf.uid}">
+						<a href="#" th:onclick="likeClick([[${boardf.fid}]])">
+							<span th:if="${session.likeClicked == 1}"  ><i id="likeIcon"
+									class="fa-solid fa-thumbs-up"></i></span>
+							<span th:if="${session.likeClicked == 0}" ><i id="likeIcon"
+									class="fa-regular fa-thumbs-up"></i></span>
+							<span id="likeCount" th:text="${count}" style="color: coral;"></span>
+						</a>
+					</span>
+				</span>
+			</div>
+			<div class="store_info">
+				<h4>매장소개</h4><br>
+				[[${boardf.info}]]
+
+			</div>
+			<div>
+				<div class="store_info_detail" style="display: inline-block; vertical-align: top;">
+					<table class="info-table">
+						<tbody>
+							<tr>
+								<th>영업시간</th>
+								<td>[[${boardf.opening}]]</td>
+							</tr>
+							<tr>
+								<th>메뉴</th>
+								<td>
+									<ul class="menu-list">
+										<li th:each="menu: ${menuList}">
+											<p>[[${menu.food}]] <span>[[${menu.price}]]</span></p>
+										</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<th>주소</th>
+								<td>[[${boardf.location}]]</td>
+							</tr>
+							<tr>
+								<th>전화번호</th>
+								<td>[[${boardf.tel}]]</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="map_style" id="map"></div>
+
+				<script type="text/javascript"
+					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=05fbb2c67a570b92846ce829a41ff26e&libraries=services"></script>
+				<script>
+					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						mapOption = {
+							center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+							level: 3 // 지도의 확대 레벨
+						};
+
+					// 지도를 생성합니다    
+					var map = new kakao.maps.Map(mapContainer, mapOption);
+
+					// 주소-좌표 변환 객체를 생성합니다
+					var geocoder = new kakao.maps.services.Geocoder();
+
+					var address = "[[${address}]]";
+					var title = "[[${title}]]";
+
+					// 주소로 좌표를 검색합니다
+					geocoder.addressSearch(address, function (result, status) {
+
+						// 정상적으로 검색이 완료됐으면 
+						if (status === kakao.maps.services.Status.OK) {
+
+							var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+							// 결과값으로 받은 위치를 마커로 표시합니다
+							var marker = new kakao.maps.Marker({
+								map: map,
+								position: coords
+							});
+
+							// 인포윈도우로 장소에 대한 설명을 표시합니다
+							var infowindow = new kakao.maps.InfoWindow({
+								content: '<div style="width:150px;text-align:center;padding:1px 0px;background-color: white; color:coral;border:1px solid black; font-size: 25px; font-weight:bold">' + title + '</div>'
+							});
+							infowindow.open(map, marker);
+
+							// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+							map.setCenter(coords);
+						}
+					});    
+				</script>
+			</div>
+			<hr>
+			<!-- reply 등록-->
+			<span th:if="${session.sessUid}">
+				<form class="form-inline" action="/mid/boardf/reply" method="post" style="margin-bottom: 80px;">
+					<input type="hidden" name="fid" th:value="${boardf.fid}">
+					<input type="hidden" name="uid" th:value="${boardf.uid}">
+					<div class="row d-flex mt-2" style="align-items: center;">
+						<div class="col-1">
+							<label class="col-form-label">댓글</label>
+						</div>
+						<div class="col-9">
+							<textarea name="comment" rows="2" class="form-control"></textarea>
+						</div>
+						<div class="col-2">
+							<button type="submit" class="btn btn-primary ms-3">등록</button>
+						</div>
+					</div>
+				</form>
+			</span>
+			<!-- reply 등록 끝-->
+			<!-- reply 보여주기-->
+			<div th:each="reply: ${replyList}">
+				<div class="row" th:if="${reply.isMine == 0}">
+					<div class="col-9">
+						<a class="me-2" th:href="@{/user/mypage/{x}(x=${reply.uid})}">[[${reply.uname}]]</a>
+						<span th:text="${#temporals.format(reply.regTime, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+						<span>[(${reply.comment})]</span>
+					</div>
+					<div class="col-3"></div>
+				</div>
+				<div class="row" th:if="${reply.isMine == 1}">
+					<div class="col-3"></div>
+					<div class="col-9 text-end">
+						<span class="me-2">[[${reply.uname}]]</span>
+						<span th:text="${#temporals.format(reply.regTime, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+						<span>[(${reply.comment})]</span>
+					</div>
+				</div>
+				<br>
+				<hr>
+			</div>
+			<!-- reply 보여주기 끝-->
+
+</div>
+		</div>		</div>
+		</div>
+
+	</div>
+	<hr>
+	<footer th:replace="~{fragments/base :: bottom}"></footer>
+</body>

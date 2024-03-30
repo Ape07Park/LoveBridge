@@ -1,0 +1,192 @@
+<!-- head.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--header fragment 시작 -->
+    <header th:fragment="head">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/fdb840a8cc.js" crossorigin="anonymous"></script>
+        <title>Document</title>
+        <style>
+            .card-body {
+                justify-content: center;
+                /* 수평 가운데 정렬 */
+                text-align: center;
+                /* 텍스트 가운데 정렬 */
+                position: relative;
+                /* 부모 요소 설정 */
+            }
+
+            /* 스프링 공책 스타일 */
+            .spring {
+                width: 50px;
+                /* 공책 너비 */
+                height: 50px;
+                /* 공책 높이 */
+                margin: 10px auto;
+                /* 상하 여백을 줌 */
+                border-top: 3px solid #000;
+                /* 공책 윗 부분 선 */
+                border-radius: 35% 35% 0 0;
+                /* 아랫 부분의 둥근 모양을 위한 경계 반경 설정 */
+                position: absolute;
+                z-index: 9999;
+            }
+
+            /* 스프링 공책 내부 원 모양 */
+            .spring::before,
+            .spring::after {
+                content: '';
+                position: absolute;
+                top: -9px;
+                width: 16px;
+                height: 23px;
+                border: 3px solid #000;
+                background-color: #fff;
+                border-radius: 50%;
+                /* 원 모양으로 만들기 */
+                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            /* 왼쪽 원 모양 */
+            .spring::before {
+                left: -6px;
+            }
+
+            /* 오른쪽 원 모양 */
+            .spring::after {
+                right: -6px;
+            }
+
+            .card {
+                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            div.rgyPostIt {
+                position: relative;
+                display: inline-block;
+                margin: 5px 0;
+                border: 1px solid #f8f861;
+                border-left: 30px solid #f8f861;
+                border-bottom-right-radius: 60px 10px;
+                font-family: 'Nanum Pen Script';
+                font-size: 27px;
+                color: #555;
+                word-break: break-all;
+                background: -webkit-gradient(linear, left top, right bottom, color-stop(81%, #ffff88), color-stop(82%, #ffff88), color-stop(82%, #ffff88), color-stop(100%, #ffffc6));
+                /* Chrome,Safari4+ */
+                transition: all 0.2s;
+            }
+
+            div.rgyPostIt::after {
+                content: " ";
+                position: absolute;
+                z-index: -1;
+                right: 0;
+                bottom: 35px;
+                width: 150px;
+                height: 30px;
+                background-color: rgba(0, 0, 0, 0);
+                box-shadow: 2px 35px 5px rgba(0, 0, 0, 0.4);
+                -webkit-box-shadow: 2px 35px 5px rgba(0, 0, 0, 0.4);
+                transform: matrix(-1, -0.1, 0, 1, 0, 0);
+                transition: all 0.2s;
+            }
+
+            div.rgyPostIt:hover {
+                border-bottom-right-radius: 75px 30px;
+            }
+
+            div.rgyPostIt:hover::after {
+                box-shadow: 2px 37px 7px rgba(0, 0, 0, 0.37);
+                -webkit-box-shadow: 2px 37px 7px rgba(0, 0, 0, 0.37);
+            }
+
+            div.rgyPostIt>p {
+                padding: 5px 0 !important;
+            }
+
+            div.rgyPostIt>p::before {
+                content: "\f198";
+                margin-right: 7px;
+                font-family: "FontAwesome";
+                font-weight: normal;
+                font-size: 20px;
+                vertical-align: middle;
+            }
+
+            div.rgyPostIt>p>a {
+                color: #555;
+            }
+        </style>
+    </header>
+     <!--header fragment 끝 -->
+</head>
+<body>
+    <!-- main.html // 사용 x-->
+    <div class="container mt-3">
+        <div class="card" style="background-color: rgb(245, 222, 226);">
+            <div class="card-body" style="height: 750px;">
+                <h4 class="card-title">Card title</h4>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    
+                    <!-- aside fragment 시작(aside는 여기서 고치시오)-->
+                    <aside th:fragment="aside">
+
+                        <div class="card" style="height: 650px;">
+                            <div class="card-body">
+                                <div class="container mt-3">                                  
+                                      <img class="card-img-top" src="../img/James.jpg" style="width:100%">
+                                      <div class="card-body">
+                                        <h2 class="card-title">D + 100</h2> 
+                                        <a href="#" class="btn btn-primary">james의 Instagram</a>
+                                      </div>
+                                    
+                                  </div>
+                            </div>
+                        </div>
+
+                        <!-- 스프링 -->
+                        <div class="spring" style="left: 350px; top: 100px;"></div>
+                        <div class="spring" style="left: 350px; top: 200px;"></div>
+                        <div class="spring" style="left: 350px; top: 300px;"></div>
+                        <div class="spring" style="left: 350px; top: 400px;"></div>
+                        <div class="spring" style="left: 350px; top: 500px;"></div>
+                        <div class="spring" style="left: 350px; top: 600px;"></div>
+                    </aside>
+                    <!-- aside fragment 끝-->
+                </div>
+            </div>
+
+            <!-- nav fragment 끝-->
+            <nav th:fragment="postIt">  
+                <div class="rgyPostIt" style="left: 350px; top: 60px;">
+                    <p>스케쥴</p>
+                </div>
+                <br/>
+                <div class="rgyPostIt" style="left: 350px; top: 60px;">
+                    <p>게시판</p>
+                </div>
+                <br/>
+                <div class="rgyPostIt" style="left: 350px; top: 60px;">
+                    <p>캘린더</p>
+                </div>
+                <br/>
+                <div class="rgyPostIt" style="left: 350px; top: 60px;">
+                    <p>사진첩</p>
+                </div>
+                <br/>
+                <div class="rgyPostIt" style="left: 350px; top: 60px;">
+                    <p>기념일</p>
+                </div>
+            </nav>
+            <!-- nav fragment 끝-->         
+        </div>
+    </div>
+</body>
+</html>
