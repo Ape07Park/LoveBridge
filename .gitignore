@@ -1,5 +1,6 @@
 # ape adds
 application.properties
+myKeys.properties
 
 HELP.md
 target/
