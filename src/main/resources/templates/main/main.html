@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <header th:replace="~{common/base :: head}"></header>
+</head>
+
+<body>
+  <!-- 핑크 배경-->
+  <div class="container mt-3">
+    <div class="card" style="background-color: rgb(245, 222, 226);">
+      <div class="card-body" style="height: 750px;">
+        <h4 class="card-title">Card title</h4>
+        <!--핑크 배경안 종이 -->
+        <div class="row">
+          <div class="col-4">
+            <!--커플 프로필 -->
+            <div th:insert="~{common/base :: aside}"></div>
+          </div>
+          <div class="col-8">
+            <div class="card" style="height: 650px;">
+              <div class="card-body">
+                <p>board</p>
+                <h1>Base가 아닌 board를 통해 내용 추가하기</h1>
+
+                <!-- 포스트 잇 시작-->
+                <div class="rgyPostIt" style="left: 350px; top: 60px;">
+                  <p>홈</p>
+                </div>
+                <br />
+                <div class="rgyPostIt" style="left: 350px; top: 60px;">
+                  <p>게시판</p>
+                </div>
+                <br />
+                <div class="rgyPostIt" style="left: 350px; top: 60px;">
+                  <p>캘린더</p>
+                </div>
+                <br />
+                <div class="rgyPostIt" style="left: 350px; top: 60px;">
+                  <p>사진첩</p>
+                </div>
+                <!-- 포스트 잇 끝-->
+
+                <!-- 슬라이드 시작-->
+                <div id="demo" class="carousel slide" data-bs-ride="carousel" style="width: 200px;">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                  </div>
+
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <!-- 주소, 이미지는 상황에 맞게 바꾸기 -->
+                      
+
+                        <img src="../img/1.png" class="d-block" style="max-width: 50%; height: 350px; ">
+                     
+                    </div>
+
+                    <div class="carousel-item">
+                     
+                        <img src="../img/2.png" class="d-block" style="max-width: 100%; height: 350px; ">
+                     
+                    </div>
+
+                    <div class="carousel-item">
+                     
+                        <img src="../img/James.jpg" class="d-block" style="max-width: 100%; height: 350px; ">
+                      
+                    </div>
+                  </div>
+
+                  <!-- Left and right controls/icons --> <!-- 투명도 넣어보기 -->
+                  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev"
+                    style=" height: 349px; margin-top: 47px;">
+                    <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next"
+                    style=" height: 349px; margin-top: 47px;">
+                    <span class="carousel-control-next-icon"></span>
+                  </button>
+                </div>
+                <!-- 슬라이드 끝 -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</body>
+</html>

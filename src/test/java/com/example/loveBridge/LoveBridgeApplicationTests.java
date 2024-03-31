@@ -1,4 +1,4 @@
-package com.example.loveBridge;
+package com.example.LoveBridge;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

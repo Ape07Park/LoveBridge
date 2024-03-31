@@ -1,4 +1,4 @@
-package com.example.loveBridge;
+package com.example.LoveBridge.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/lb")
 public class Test {
 	
-	@GetMapping("/body")
+	@GetMapping("/main")
 	public String test() {
-		return "/test/test";
+		return "/main/main";
 	}
-	
 	
 }
